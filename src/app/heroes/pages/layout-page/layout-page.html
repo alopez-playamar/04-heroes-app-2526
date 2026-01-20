@@ -8,6 +8,15 @@
         <mat-icon>menu</mat-icon>
       </button>
     </mat-toolbar>
+
+    <mat-nav-list>
+      @for (item of sidebarItems; track item.label) {
+        <mat-list-item [routerLink]="item.url">
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          {{ item.label }}
+        </mat-list-item>
+      }
+    </mat-nav-list>
   </mat-sidenav>
 
   <mat-toolbar color="primary">
