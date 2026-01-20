@@ -1,1 +1,6 @@
-<p>list-page works!</p>
+<ul>
+  @for (heroe of listadoHeroes; track $index) {
+    <li>{{ heroe.superhero }}</li>
+  }
+
+</ul>

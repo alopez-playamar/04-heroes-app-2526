@@ -6,6 +6,22 @@
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+
+.toolbar-primary {
+  @include mat.toolbar-overrides((
+    container-background-color: var(--mat-sys-primary),
+    container-text-color: var(--mat-sys-on-primary),
+  ));
+}
+
+.toolbar-warn {
+  @include mat.toolbar-overrides((
+    container-background-color: var(--mat-sys-error),
+    container-text-color: var(--mat-sys-on-error),
+  ));
+}
+
+
 html {
   @include mat.theme((
     color: (
