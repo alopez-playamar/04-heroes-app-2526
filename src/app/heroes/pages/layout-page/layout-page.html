@@ -19,19 +19,22 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-toolbar class="toolbar-primary">
-    <button mat-icon-button (click)="sidenav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span class="spacer"></span>
-    <button mat-button>
-      Logout
-    </button>
-  </mat-toolbar>
+  <mat-sidenav-content>
+    <mat-toolbar class="toolbar-primary">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="spacer"></span>
+      <button mat-button>
+        Logout
+      </button>
+    </mat-toolbar>
 
-  <div class="container p-2">
-    <router-outlet></router-outlet>
-  </div>
+    <div class="container p-2">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+
 
 </mat-sidenav-container>
 
