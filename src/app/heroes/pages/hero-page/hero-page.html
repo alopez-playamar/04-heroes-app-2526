@@ -22,8 +22,8 @@
 			<mat-card-header>
 				<mat-card-title>Información</mat-card-title>
 				<mat-card-subtitle>{{ hero.superhero }}</mat-card-subtitle>
-			</mat-card-header>	
-			
+			</mat-card-header>
+
 			<mat-card-content>
 				<mat-list>
 					<mat-list-item>{{ hero.first_appearance }}</mat-list-item>
@@ -33,9 +33,10 @@
 				</mat-list>
 
 				<!-- TODO: Crear un botón para volver al listado -->
+         <button mat-button (click)="volver()">Volver</button>
 			</mat-card-content>
 		</mat-card>
 	</div>
-}	
+}
 
 

@@ -18,16 +18,3 @@ mat-sidenav-container,
 mat-sidenav {
   border-radius: 0 !important;
 }
-
-/* Por si el recorte viene por overflow */
-.mat-drawer-container,
-.mat-drawer-inner-container {
-  overflow: visible !important;
-}
-
-/* Y por si el redondeo te lo está metiendo el toolbar del menú */
-mat-sidenav mat-toolbar,
-mat-sidenav .mat-toolbar,
-mat-sidenav .mat-mdc-toolbar {
-  border-radius: 0 !important;
-}

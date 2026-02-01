@@ -16,7 +16,7 @@ export class HeroPageComponent implements OnInit {
 
   constructor(
     private heroesService: HeroesService,
-    private activatedRoute: ActivatedRoute, 
+    private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
   }
@@ -35,6 +35,10 @@ export class HeroPageComponent implements OnInit {
 
         return;
       })
+  }
+
+  volver(): void {
+    this.router.navigate(['/heroes/list']);
   }
 
 }
