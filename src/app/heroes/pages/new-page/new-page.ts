@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Publisher } from '../../interfaces/hero-interface';
+import { Hero, Publisher } from '../../interfaces/hero-interface';
+import { HeroesService } from '../../services/heroes';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-new-page',
@@ -8,12 +12,22 @@ import { Publisher } from '../../interfaces/hero-interface';
   styles: ``,
   standalone: false
 })
-export class NewPageComponent {
+export class NewPageComponent implements OnInit {
+
+  constructor(
+    private heroService: HeroesService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar
+  )
+  {}
+
   public publishers = [
     {id: 'DC Comics', desc: 'DC - Comics'},
     {id: 'Marvel Comics', desc: 'Marvel - Comics'},
   ]
 
+  // Creamos un FormGroup e inicializamos los valores de cara a insertar un nuevo hero
   public heroForm = new FormGroup({
     id:               new FormControl<string>(''),
     superhero:        new FormControl<string>('', { nonNullable: true } ),
@@ -24,11 +38,50 @@ export class NewPageComponent {
     alt_img:          new FormControl<string>(''),
   })
 
+  ngOnInit(): void {
+      // Sino estamos editando, no tenemos que hacer nada más
+      if (!this.router.url.includes('edit')) return;
+
+      // Si estamos editando, inicializamos en el momento de la carga
+      this.activatedRoute.params
+        .pipe(
+          switchMap( ({id}) => this.heroService.getHeroById(id) ),
+
+        ).subscribe(hero => {
+          // Sino hay hero nos vamos al inicio
+          if (!hero) return this.router.navigateByUrl('/');
+
+          this.heroForm.reset(hero);
+          return;
+        })
+  }
+
+  get currentHero(): Hero {
+    const hero = this.heroForm.value as Hero;
+    return hero;
+  }
+
   onSubmit(): void {
-    console.log({
-      formIsValid: this.heroForm.valid,
-      value: this.heroForm.value,
-    });
-    
+    if (this.heroForm.invalid) return;
+
+    if (this.currentHero.id ){
+      this.heroService.updateHero(this.currentHero)
+        .subscribe(hero =>{
+          this.showSnackBar(`${ hero.superhero } updated!`)
+        });
+      return;
+    }
+
+    this.heroService.addHero(this.currentHero)
+      .subscribe( hero => {
+        // TODO: Navegar a /heroes/edit/hero.id
+        this.showSnackBar(`${ hero.superhero } created!`)
+      })
+  }
+
+  private showSnackBar(message: string): void {
+    this.snackBar.open(message, 'OK', {
+      duration: 2500
+    })
   }
 }

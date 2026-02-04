@@ -1,12 +1,21 @@
 {
   "users": [
     {
-      "id": "1",
+      "id": 1,
       "usuario": "John Doe",
       "email": "john.due@gmail.com"
     }
   ],
   "heroes": [
+    {
+      "id": "dc-batman",
+      "superhero": "Batman",
+      "publisher": "DC Comics",
+      "alter_ego": "Bruce Wayne",
+      "first_appearance": "Detective Comics #27",
+      "characters": "Bruce Wayne",
+      "alt_img": null
+    },
     {
       "id": "dc-superman",
       "superhero": "Superman",
@@ -160,12 +169,22 @@
       "characters": "Norrin Radd"
     },
     {
-      "id": "marvel-blackwidow",
-      "superhero": "Black Widow",
+      "id": "qLvjtYL",
+      "superhero": "Super Antonio",
       "publisher": "Marvel Comics",
-      "alter_ego": "Natasha Romanov",
-      "first_appearance": "Whhhat Comics #69",
-      "characters": "Natasha Romanov"
+      "alter_ego": "Antonio López",
+      "first_appearance": "1977",
+      "characters": "alopez",
+      "alt_img": "https://wallpapers.com/images/hd/goku-dragon-ball-super-r33dysxh1ubub7nk.jpg"
+    },
+    {
+      "id": "7f6oyns",
+      "superhero": "Manolo",
+      "publisher": "DC Comics",
+      "alter_ego": "Manuel",
+      "first_appearance": "2024",
+      "characters": "manolito",
+      "alt_img": "https://www.zonanegativa.com/2007/5652.jpg"
     }
   ]
 }
