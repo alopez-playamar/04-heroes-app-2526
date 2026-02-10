@@ -5,6 +5,8 @@ import { HeroesService } from '../../services/heroes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-new-page',
@@ -18,7 +20,8 @@ export class NewPageComponent implements OnInit {
     private heroService: HeroesService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   )
   {}
 
@@ -83,5 +86,27 @@ export class NewPageComponent implements OnInit {
     this.snackBar.open(message, 'OK', {
       duration: 2500
     })
+  }
+
+  public onDeleteHero() {
+    if (!this.currentHero.id) throw Error ('Hero id is required');
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: this.heroForm.value,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) return;
+
+      this.heroService.deleteHeroById(this.currentHero.id)
+        .subscribe( wasDeleted => {
+          if (wasDeleted) {
+            this.showSnackBar(`Héroe ${ this.currentHero.superhero } eliminado satisfactoriamente`)
+          } else {
+            this.showSnackBar(`No ha sido posible eliminar el Héroe ${ this.currentHero.superhero }`)
+          }
+          this.router.navigate(['/heroes']);
+
+        });    })
   }
 }
